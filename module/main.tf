@@ -29,7 +29,7 @@ resource "null_resource" "Provisioner" {
       "rm -rf RoboshopAutomation",
       "git clone https://github.com/mchitimalla/RoboshopAutomation.git",
       "cd RoboshopAutomation",
-      "sudo bash ${var.component_name}.sh ${var.password}"
+      "sudo bash ${var.script_name}.sh ${var.password}"
     ]
   }
 }
