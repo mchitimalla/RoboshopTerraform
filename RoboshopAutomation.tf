@@ -20,5 +20,5 @@ resource "aws_route53_record" "record" {
   type    = "A"
   zone_id = "Z02749461DPP5346XTQCJ"
   ttl = 30
-  records =["aws_instance.${each.value["name"]}.private_ip"]
+  records ="aws_instance.${each.value["name"]}.private_ip"
 }
