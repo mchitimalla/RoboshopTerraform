@@ -9,11 +9,7 @@ app_servers={
     instance_type="t3.micro"
     script_name="5UserSetup"
   }
-  mongodb={
-    name="mongodb"
-    instance_type="t3.micro"
-    script_name="2MongoDBSetup"
-  }
+
   catalogue={
     name="catalogue"
     instance_type="t3.micro"
@@ -23,21 +19,6 @@ app_servers={
     name="cart"
     instance_type="t3.micro"
     script_name="6CartSetup"
-  }
-  rabbitmq={
-    name="rabbitmq"
-    instance_type="t3.micro"
-    script_name="9RabbitMQSetup"
-  }
-  mysql={
-    name="mysql"
-    instance_type="t3.micro"
-    script_name="7MySqlSetup"
-  }
-  redis={
-    name="redis"
-    instance_type="t3.micro"
-    script_name="4RedisSetup"
   }
   payment={
     name="payment"
@@ -53,5 +34,27 @@ app_servers={
     name="dispatch"
     instance_type="t3.micro"
     script_name="11DispatchSetup"
+  }
+}
+database_servers={
+  mongodb={
+    name="mongodb"
+    instance_type="t3.micro"
+    script_name="2MongoDBSetup"
+  }
+  rabbitmq={
+    name="rabbitmq"
+    instance_type="t3.micro"
+    script_name="9RabbitMQSetup"
+  }
+  mysql={
+    name="mysql"
+    instance_type="t3.micro"
+    script_name="7MySqlSetup"
+  }
+  redis={
+    name="redis"
+    instance_type="t3.micro"
+    script_name="4RedisSetup"
   }
 }

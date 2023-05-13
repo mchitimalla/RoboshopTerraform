@@ -17,6 +17,7 @@ resource "aws_route53_record" "record" {
   records =[aws_instance.instance.private_ip]
 }
 resource "null_resource" "Provisioner" {
+  count = var.provisioner? 1: 0
   depends_on = [aws_route53_record.record]
   provisioner "remote-exec" {
     connection {
