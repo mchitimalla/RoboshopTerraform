@@ -1,6 +1,7 @@
 
 
-resource "aws_spot_instance_request" "instance" {
+resource "aws_instance" "instance" {
+
   ami           = data.aws_ami.centosimage.image_id
   instance_type = var.instance_type
   vpc_security_group_ids = [data.aws_security_group.AllowAll.id]
@@ -8,15 +9,15 @@ resource "aws_spot_instance_request" "instance" {
     Name = var.component_name
   }
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
-  instance_interruption_behavior = "stop"
+  #instance_interruption_behavior = "stop"
 }
 resource "aws_route53_record" "record" {
-  depends_on = [aws_spot_instance_request.instance]
+  depends_on = [aws_instance.instance]
   name    = "${var.component_name}-${var.env}.eroboshop.online"
   type    = "A"
   zone_id = "Z02749461DPP5346XTQCJ"
   ttl = 30
-  records =[aws_spot_instance_request.instance.private_ip]
+  records =[aws_instance.instance.private_ip]
 }
 resource "null_resource" "Provisioner" {
   depends_on = [aws_route53_record.record]
@@ -25,7 +26,7 @@ resource "null_resource" "Provisioner" {
       type     = "ssh"
       user     = "centos"
       password = "DevOps321"
-      host     = aws_spot_instance_request.instance.private_ip
+      host     = aws_instance.instance.private_ip
     }
     inline= var.app_type == "db" ? local.db_commands : local.app_commands
 
