@@ -1,3 +1,4 @@
+env="dev"
 app_servers={
   frontend={
     name="frontend"
