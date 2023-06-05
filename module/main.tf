@@ -7,7 +7,7 @@ resource "aws_spot_instance_request" "instance" {
   tags = {
     Name = var.component_name
   }
-  iam_instance_profile = aws_iam_instance_profile.instance_profile
+  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   instance_interruption_behavior = "stop"
 }
 resource "aws_route53_record" "record" {
@@ -53,7 +53,7 @@ resource "aws_iam_role" "role" {
   }
 }
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.component_name}-${var.env}-role"
+  name = "${var.component_name}-${var.env}-profile"
   role = aws_iam_role.role.name
 }
 resource "aws_iam_role_policy" "ssm-ps-policy" {
