@@ -21,6 +21,7 @@ resource "aws_route53_record" "record" {
 }
 resource "null_resource" "Provisioner" {
   depends_on = [aws_route53_record.record]
+  count = var.provisioner ? 1 : 0
   provisioner "remote-exec" {
     connection {
       type     = "ssh"

@@ -20,5 +20,5 @@ module "app-servers" {
   password       = lookup(each.value, "password", "null")
   script_name    = each.value["script_name"]
   app_type="app"
-  provisioner = true
+  provisioner = false
 }
