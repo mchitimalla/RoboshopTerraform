@@ -67,21 +67,39 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Sid": "VisualEditor0",
-        "Effect": "Allow",
-        "Action": [
-          "ssm:GetParameterHistory",
-          "ssm:GetParametersByPath",
-          "ssm:GetParameters",
-          "ssm:GetParameter"
-        ],
-        "Resource": "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*"
-      },
-      {
-        "Sid": "VisualEditor1",
-        "Effect": "Allow",
-        "Action": "ssm:DescribeParameters",
-        "Resource": "*"
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+              "kms:ListKeys",
+              "ssm:DescribeParameters",
+              "kms:ListAliases"
+            ],
+            "Resource": "*"
+          },
+          {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+              "kms:GetParametersForImport",
+              "kms:Decrypt",
+              "kms:ListKeyPolicies",
+              "kms:ListRetirableGrants",
+              "ssm:GetParameterHistory",
+              "kms:ListResourceTags",
+              "ssm:GetParametersByPath",
+              "ssm:GetParameters",
+              "ssm:GetParameter",
+              "kms:ListGrants"
+            ],
+            "Resource": [
+              "arn:aws:kms:us-east-1:804239253946:key/${var.env}.${var.component_name}.*",
+              "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*"
+            ]
+          }
+        ]
       }
     ]
   })
