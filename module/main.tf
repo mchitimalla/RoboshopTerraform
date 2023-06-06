@@ -95,7 +95,7 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
               "kms:ListGrants"
             ],
             "Resource": [
-              "arn:aws:kms:us-east-1:804239253946:key/${var.env}.${var.component_name}.*",
+              "arn:aws:kms:us-east-1:804239253946:key/*",
               "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*"
             ]
           }
