@@ -21,7 +21,6 @@ resource "aws_route53_record" "record" {
 }
 resource "null_resource" "Provisioner" {
   depends_on = [aws_route53_record.record]
-  count = var.provisioner ? 1 : 0
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
@@ -70,19 +69,28 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
         "Sid": "VisualEditor0",
         "Effect": "Allow",
         "Action": [
+          "kms:GetParametersForImport",
+          "kms:Decrypt",
           "ssm:GetParameterHistory",
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource": "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*"
+        "Resource": [
+          "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*",
+          "arn:aws:kms:us-east-1:804239253946:key/bab54d3f-2462-4a3f-b32c-59f05ca38d9d"
+        ]
       },
       {
         "Sid": "VisualEditor1",
         "Effect": "Allow",
-        "Action": "ssm:DescribeParameters",
+        "Action": [
+          "ssm:DescribeParameters",
+          "kms:ListAliases"
+        ],
         "Resource": "*"
       }
     ]
-  })
+  }
+  )
 }
