@@ -75,12 +75,22 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource": "arn:aws:ssm:us-east-1:804239253946:parameter/${var.env}.${var.component_name}.*"
+        "Resource": "arn:aws:ssm:us-east-1:804239253946:parameter/dev.cart.*"
       },
       {
         "Sid": "VisualEditor1",
         "Effect": "Allow",
-        "Action": "ssm:DescribeParameters",
+        "Action": [
+          "kms:GetParametersForImport",
+          "kms:ListKeys",
+          "kms:Decrypt",
+          "kms:ListKeyPolicies",
+          "kms:ListRetirableGrants",
+          "ssm:DescribeParameters",
+          "kms:ListAliases",
+          "kms:ListResourceTags",
+          "kms:ListGrants"
+        ],
         "Resource": "*"
       }
     ]
